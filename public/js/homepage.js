@@ -1,4 +1,8 @@
-const btn =document.getElementById('discover-btn');
-btn.addEventListener('click',()=>{
-  window.location.href='../Products/product.html';
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('modern-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      window.location.href = '/product';
+    });
+  }
 });
