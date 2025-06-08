@@ -13,11 +13,9 @@ const {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // 👇 استخراج الدولة من الفورم
     const country = req.body.category || req.body.country || 'default';
     const folderPath = path.join('public/image', country.toLowerCase());
 
-    // 👇 إنشاء المجلد إذا مش موجود
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true });
     }
@@ -33,7 +31,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Routes
 router.post('/insert_product', upload.single('image'), insertProduct);
 router.get('/search_product', searchProduct);
 router.post('/delete_product', deleteProduct);
