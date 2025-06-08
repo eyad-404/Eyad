@@ -197,19 +197,28 @@ nav ul li a:hover {
   line-height: 1.6;
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px), 
+       only screen and (max-device-width: 812px) and (orientation: portrait), 
+       only screen and (max-device-width: 896px) and (orientation: landscape) {
+  
   .login-container {
     width: 95%;
     height: auto;
     flex-direction: column;
+    display: flex;
+    align-items: center;
   }
 
-  .login-box, .welcome-section {
+  .login-box,
+  .welcome-section {
     width: 100%;
     padding: 30px;
+    box-sizing: border-box;
   }
 
   .welcome-section {
     order: -1;
+    text-align: center;
   }
 }
+
