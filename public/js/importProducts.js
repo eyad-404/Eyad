@@ -1,10 +1,9 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 
-// ✅ Replace with your actual connection string
 mongoose.connect('mongodb+srv://eyad404:1234@cluster0.mwnt4hv.mongodb.net/khalasonabaa?retryWrites=true&w=majority&appName=Cluster0')
-    .then(() => console.log('✅ Connected to MongoDB'))
-    .catch((err) => console.error('❌ MongoDB connection error:', err));
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
 
 const Product = mongoose.model('Product', new mongoose.Schema({
     name: String,
@@ -46,7 +45,7 @@ async function importData() {
 
     await Product.insertMany(allProducts);
     await Country.insertMany(countries);
-    console.log('✅ Import complete!');
+    console.log('Import complete!');
     mongoose.disconnect();
 }
 
