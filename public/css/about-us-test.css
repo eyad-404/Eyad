@@ -48,7 +48,7 @@ nav ul {
 }
 
 nav ul li a {
-  color: #34495e; /* dark muted blue */
+  color: #34495e; 
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -56,7 +56,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #2980b9; /* bright blue hover */
+  color: #2980b9; 
   
 }
 
@@ -148,7 +148,6 @@ nav ul li a:hover {
   display: none;
 }
 
-/* Responsive */
 @media (max-width: 790px) {
   header {
     flex-direction: column;
