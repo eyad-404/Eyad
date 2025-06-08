@@ -46,7 +46,6 @@ const delete_user = async (req, res, next) => {
       return res.status(404).send('User not found');
     }
 
-    // بعد الحذف، إعادة التوجيه لصفحة إدارة المستخدمين
     return res.redirect('/users');
   } catch (err) {
     console.error(err);
@@ -75,12 +74,10 @@ const user_update = async (req, res, next) => {
       return res.status(404).send('User not found');
     }
 
-    // لا ترسل res.send هنا، فقط ريديركت
     return res.redirect('/users');
 
   } catch (err) {
     console.error(err);
-    // هنا ترسل رسالة خطأ واحدة فقط
     res.status(500).send('Error updating user');
   }
 };
