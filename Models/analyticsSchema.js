@@ -1,4 +1,3 @@
-// models/analyticsSchema.js
 const mongoose = require('mongoose');
 
 const analyticsSchema = new mongoose.Schema({
