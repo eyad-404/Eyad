@@ -18,7 +18,7 @@
   </style>
 </head>
 <body>
-  <h1>📡 Live Product Events</h1>
+  <h1>Live Product Events</h1>
   <div id="log">Waiting for updates...</div>
 
   <script>
@@ -29,19 +29,17 @@
       const message = event.data;
       const time = new Date().toLocaleTimeString();
 
-      // Show the raw message in log
       logBox.innerHTML += `<p><strong>[${time}]</strong> ${message}</p>`;
       logBox.scrollTop = logBox.scrollHeight;
 
-      // If the server sends the "refresh" command
       if (message === "refresh-products") {
-        logBox.innerHTML += `<p style="color: green;"><strong>🔄 Reloading products...</strong></p>`;
-        setTimeout(() => location.reload(), 1000); // Reload page after 1 second
+        logBox.innerHTML += `<p style="color: green;"><strong>Reloading products...</strong></p>`;
+        setTimeout(() => location.reload(), 1000);
       }
     };
 
     source.onerror = function() {
-      logBox.innerHTML += `<p style="color:red;">❌ Connection error or closed.</p>`;
+      logBox.innerHTML += `<p style="color:red;">Connection error or closed.</p>`;
       source.close();
     };
   </script>
