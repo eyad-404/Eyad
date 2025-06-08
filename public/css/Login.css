@@ -197,7 +197,7 @@ nav ul li a:hover {
   line-height: 1.6;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 600px) {
   .login-container {
     width: 95%;
     height: auto;
