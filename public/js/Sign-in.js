@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonText = document.querySelector('.button-text');
     const loadingIcon = document.getElementById('loadingIcon');
     
-    // متطلبات كلمة السر
     const passwordReqs = {
         length: document.getElementById('req-length'),
         number: document.getElementById('req-number'),
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
         upper: document.getElementById('req-upper')
     };
 
-    // عرض/إخفاء كلمة السر
     if (togglePassword) {
         togglePassword.addEventListener('click', function() {
             togglePasswordVisibility(passwordInput, this);
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // التحقق من كلمة السر
     function checkPasswordRequirements(password) {
         const requirements = {
             length: password.length >= 8,
@@ -51,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
             uppercase: /[A-Z]/.test(password)
         };
 
-        // تحديث واجهة المستخدم
         passwordReqs.length.classList.toggle('valid', requirements.length);
         passwordReqs.number.classList.toggle('valid', requirements.number);
         passwordReqs.special.classList.toggle('valid', requirements.special);
@@ -60,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return Object.values(requirements).every(Boolean);
     }
 
-    // التحقق من الحقول
     function validateField(input, condition, errorId, errorMessage) {
         const errorElement = document.getElementById(errorId);
         const inputGroup = input.closest('.input-field');
@@ -76,11 +71,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // التحقق من النموذج
     function validateForm() {
         let isValid = true;
         
-        // التحقق من الاسم
         isValid = validateField(
             nameInput, 
             nameInput.value.trim() !== '', 
@@ -88,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'Full name is required'
         ) && isValid;
         
-        // التحقق من البريد الإلكتروني
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isEmailValid = emailInput.value.trim() !== '' && emailRegex.test(emailInput.value);
         isValid = validateField(
@@ -98,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'Please enter a valid email'
         ) && isValid;
         
-        // التحقق من كلمة السر
         const isPasswordValid = passwordInput.value.trim() !== '' && 
                               checkPasswordRequirements(passwordInput.value);
         isValid = validateField(
@@ -108,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'Password does not meet requirements'
         ) && isValid;
         
-        // التحقق من تطابق كلمة السر
         const doPasswordsMatch = confirmPasswordInput.value.trim() !== '' && 
                                confirmPasswordInput.value === passwordInput.value;
         isValid = validateField(
@@ -121,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-    // أحداث الكتابة
     if (passwordInput) {
         passwordInput.addEventListener('input', function() {
             checkPasswordRequirements(this.value);
@@ -158,19 +147,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // إرسال النموذج
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
             if (!validateForm()) return;
             
-            // عرض حالة التحميل
             if (buttonText) buttonText.textContent = 'Creating Account...';
             if (loadingIcon) loadingIcon.style.display = 'inline-block';
             if (submitButton) submitButton.disabled = true;
             
-            // إرسال النموذج برمجياً
             this.submit();
         });
     }
