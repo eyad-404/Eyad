@@ -110,14 +110,15 @@ nav ul li a:hover {
 
 </style>
 <script>
-  const isChrome = /Chrome/.test(navigator.userAgent) &&
-          !/Edg/.test(navigator.userAgent) &&
-          !/OPR/.test(navigator.userAgent) &&
-          !/Brave/.test(navigator.userAgent);
-  if (!isChrome) {
-    window.stop();
-    alert("This webpage only runs on Chrome.");
-  }
+  const ua = navigator.userAgent;
+
+  const isChrome = /Chrome/.test(ua) && !/Edg/.test(ua) && !/OPR/.test(ua) && !/Brave/.test(ua);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+
+  if (!(isChrome || isSafari)) {
+    window.stop(); // Stop loading the page
+    alert("This website only works on Safari or Chrome browsers.");
+  }
 </script>
 
 <header>
