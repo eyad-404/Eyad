@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // عناصر DOM
     const form = document.getElementById('signupForm');
     const nameInput = document.getElementById('fullName');
     const emailInput = document.getElementById('email');
