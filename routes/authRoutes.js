@@ -17,11 +17,11 @@ router.get('/check-user', authController.ajaxCheckUser);
 router.get('/dashboard', requireLogin, authController.getDashboard);
 
 router.get('/secure-data', verifyToken, (req, res) => {
-    res.send('✅ Secure content for logged-in user');
+    res.send('Secure content for logged-in user');
 });
 
 router.get('/admin-only', verifyToken, requireJwtAdmin, (req, res) => {
-    res.send('🔐 Admin-only content');
+    res.send('Admin-only content');
 });
 
 module.exports = router;
