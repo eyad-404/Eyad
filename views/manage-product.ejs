@@ -15,7 +15,7 @@
 
     <div class="settings-grid">
 
-      <!-- GET PRODUCT -->
+      <!-- get product -->
       <div class="settings-card" >
         <h3>Get Product</h3>
         <p>Search for a product by name or ID.</p>
@@ -24,7 +24,7 @@
         </form>
       </div>
 
-      <!-- INSERT PRODUCT -->
+      <!-- insert product -->
       <div class="settings-card" >
         <h3>Insert Product</h3>
         <p>Add a new product to your inventory.</p>
@@ -38,7 +38,7 @@
         </form>
       </div>
 
-      <!-- DELETE PRODUCT -->
+      <!-- delete product -->
       <div class="settings-card">
         <h3>Delete Product</h3>
         <p>Remove a product by its name or ID.</p>
@@ -48,7 +48,7 @@
         </form>
       </div>
 
-      <!-- UPDATE PRODUCT -->
+      <!-- update product -->
       <div class="settings-card">
         <h3>Update Product</h3>
         <p>Update details of an existing product.</p>
@@ -67,7 +67,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/public/js/analytics.js"></script>
   <script>
-  // INSERT PRODUCT
   $('#insertForm').submit(function(e){
     e.preventDefault();
     var formData = new FormData(this);
@@ -80,38 +79,36 @@
       processData: false,
       success: function(response){
         if(response.success){
-          alert('✅ تم الإدخال بنجاح');
+          alert('Insertion is Done Successfully');
           document.getElementById('insertForm').reset();
         } else {
-          alert('❌ فشل في الإدخال: ' + response.message);
+          alert('Insertion Failed: ' + response.message);
         }
       },
       error: function(xhr){
-        alert('❌ خطأ: ' + xhr.responseText);
+        alert('Error : ' + xhr.responseText);
       }
     });
   });
 
-  // DELETE PRODUCT
   $('#deleteForm').submit(function(e){
     e.preventDefault();
-    var formData = $(this).serialize(); // مش محتاج FormData هنا
+    var formData = $(this).serialize();
 
     $.ajax({
       url: '/delete_product',
       type: 'POST',
       data: formData,
       success: function(response){
-        alert('✅ تم الحذف بنجاح');
+        alert('Remove is Done Successfully');
         document.getElementById('deleteForm').reset();
       },
       error: function(xhr){
-        alert('❌ فشل في الحذف: ' + xhr.responseText);
+        alert('Remove Failed: ' + xhr.responseText);
       }
     });
   });
 
-  // UPDATE PRODUCT
   $('#updateForm').submit(function(e){
     e.preventDefault();
     var formData = new FormData(this);
@@ -123,11 +120,11 @@
       contentType: false,
       processData: false,
       success: function(response){
-        alert('✅ تم التحديث بنجاح');
+        alert('Updated');
         document.getElementById('updateForm').reset();
       },
       error: function(xhr){
-        alert('❌ فشل في التحديث: ' + xhr.responseText);
+        alert('Update Failed: ' + xhr.responseText);
       }
     });
   });
