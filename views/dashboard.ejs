@@ -42,12 +42,10 @@
   </p>
 
   <div class="dashboard-actions">
-    <!-- ✅ This always goes to the normal product page -->
     <a href="/product">
       <button class="modern-btn">View Products</button>
     </a>
 
-    <!-- ✅ Only for admin users -->
     <% if (isAdmin) { %>
       <a href="/settings">
         <button class="settings-btn">Settings</button>
