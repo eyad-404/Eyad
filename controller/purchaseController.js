@@ -13,14 +13,13 @@ async function handlePurchase(req, res) {
   }
 
   try {
-    // ✅ تحديث analytics
     const updateOps = products.map(item => {
       if (!item.country || !item.quantity) {
-        console.warn('🚨 Missing country or quantity in item:', item);
+        console.warn('Missing country or quantity in item:', item);
         return null;
       }
 
-      console.log(`📦 Updating ${item.country} by +${item.quantity}`);
+      console.log(`Updating ${item.country} by +${item.quantity}`);
       return Analytics.updateOne(
         { country: item.country },
         { $inc: { purchases: item.quantity } },
@@ -30,7 +29,6 @@ async function handlePurchase(req, res) {
 
     await Promise.all(updateOps.filter(Boolean));
 
-    // ✅ حفظ الطلب
     const newOrder = new Order({
       userId,
       username,
@@ -41,9 +39,9 @@ async function handlePurchase(req, res) {
 
     await newOrder.save();
 
-    res.status(200).json({ message: '✅ Order placed successfully and analytics updated' });
+    res.status(200).json({ message: 'Order placed successfully and analytics updated' });
   } catch (error) {
-    console.error("❌ Error saving order or updating analytics:", error);
+    console.error("Error saving order or updating analytics:", error);
     res.status(500).json({ error: 'Failed to place order' });
   }
 }
