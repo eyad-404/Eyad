@@ -16,7 +16,6 @@
       align-items: center;
     }
     
-    /* Header Styles */
     *{
       margin: 0;
       padding: 0;
@@ -101,7 +100,6 @@
       box-shadow: 0px 6px 15px rgba(28, 102, 144, 0.6);
     }
     
-    /* Analytics Section - Centered Perfectly */
     .analytics {
       display: flex;
       flex-direction: column;
@@ -149,7 +147,6 @@
       padding: 20px;
     }
     
-    /* Responsive Design */
     @media (max-width: 768px) {
       .analytics {
         padding: 30px 15px;
