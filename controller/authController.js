@@ -4,13 +4,11 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
-// ===== عرض صفحة التسجيل =====
 async function getRegister(req, res) {
     console.log('📄 Register page opened');
     return res.render('Sign-in', { errorMessage: null, pageTitle: 'Sign IN' });
 }
 
-// ===== تنفيذ التسجيل =====
 async function postRegister(req, res) {
     const { fullName, email, password, confirmPassword } = req.body;
     console.log("📥 Received registration data:", req.body);
@@ -48,11 +46,11 @@ async function postRegister(req, res) {
         });
 
         await newUser.save();
-        console.log("✅ User registered:", newUser.email);
+        console.log("User registered:", newUser.email);
 
         return res.redirect('/login');
     } catch (err) {
-        console.error("❌ Registration failed:", err.message);
+        console.error("Registration failed:", err.message);
         return res.render('Sign-in', {
             errorMessage: 'Something went wrong. Please try again.',
             pageTitle: 'Sign IN'
@@ -60,15 +58,13 @@ async function postRegister(req, res) {
     }
 }
 
-// ===== عرض صفحة تسجيل الدخول =====
 function getLogin(req, res) {
     return res.render('Login', { errorMessage: null, pageTitle: 'Login' });
 }
 
-// ===== تنفيذ تسجيل الدخول =====
 async function postLogin(req, res) {
     const { email, password } = req.body;
-    console.log("🔑 Login attempt:", email);
+    console.log("Login attempt:", email);
 
     if (!email || !password) {
         return res.render('Login', {
@@ -115,10 +111,10 @@ async function postLogin(req, res) {
         user.lastLogin = new Date();
         await user.save();
 
-        console.log("✅ Login successful:", user.email);
+        console.log("Login successful:", user.email);
         return res.redirect('/homepage');
     } catch (err) {
-        console.error("❌ Login error:", err.message);
+        console.error("Login error:", err.message);
         return res.render('Login', {
             errorMessage: 'Login failed. Please try again.',
             pageTitle: 'Login'
@@ -126,7 +122,6 @@ async function postLogin(req, res) {
     }
 }
 
-// ===== صفحة لوحة التحكم =====
 async function getDashboard(req, res) {
     try {
         const sessionUser = req.session.user;
@@ -146,12 +141,11 @@ async function getDashboard(req, res) {
             isAdmin: user.admin
         });
     } catch (err) {
-        console.error("❌ Dashboard error:", err.message);
+        console.error("Dashboard error:", err.message);
         return res.redirect('/login');
     }
 }
 
-// ===== تسجيل الخروج =====
 function logout(req, res) {
     req.session.destroy(() => {
         res.clearCookie('token');
@@ -159,14 +153,13 @@ function logout(req, res) {
     });
 }
 
-// ===== API AJAX check for user existence =====
 async function ajaxCheckUser(req, res) {
     try {
         const { email } = req.query;
         const user = await User.exists({ email });
         res.json({ exists: !!user });
     } catch (error) {
-        console.error('❌ AJAX check error:', error);
+        console.error('AJAX check error:', error);
         res.status(500).json({ exists: false });
     }
 }
