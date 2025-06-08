@@ -200,7 +200,7 @@ nav ul li a:hover {
 @media only screen and (max-width: 600px), 
        only screen and (max-device-width: 812px) and (orientation: portrait), 
        only screen and (max-device-width: 896px) and (orientation: landscape) {
-  
+
   .login-container {
     width: 95%;
     height: auto;
@@ -220,5 +220,34 @@ nav ul li a:hover {
     order: -1;
     text-align: center;
   }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 10px;
+  }
+
+  .sign-in-btn {
+    margin-top: 10px;
+  }
 }
+
 
