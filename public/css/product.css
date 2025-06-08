@@ -14,7 +14,6 @@ body {
   min-height: 100vh;
 }
 
-/* ✅ HEADER */
 header {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -64,7 +63,7 @@ nav ul li a:hover {
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
-  background: #2980b9; /* solid blue button */
+  background: #2980b9; 
   border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -80,7 +79,6 @@ nav ul li a:hover {
   box-shadow: 0px 6px 15px rgba(28, 102, 144, 0.6);
 }
 
-/* ✅ PRODUCTS GRID */
 #container {
   display: flex;
   flex-wrap: wrap;
@@ -132,7 +130,6 @@ nav ul li a:hover {
   font-size: 14px;
 }
 
-/* ✅ Quantity buttons */
 .quantity-controls {
   display: flex;
   align-items: center;
@@ -141,7 +138,7 @@ nav ul li a:hover {
 }
 
 .incbtn, .decbtn {
-  background-color: #2980b9; /* same as logout */
+  background-color: #2980b9; 
   color: white;
   border: none;
   padding: 8px 15px;
@@ -169,7 +166,6 @@ nav ul li a:hover {
   color: #2c3e50;
 }
 
-/* ✅ Floating Add to Cart button */
 #addToCartBtn {
   position: fixed;
   bottom: 20px;
@@ -191,7 +187,6 @@ nav ul li a:hover {
   transform: scale(1.05);
 }
 
-/* ✅ Back to top button */
 #topButton {
   display: none;
   position: fixed;
@@ -212,7 +207,6 @@ nav ul li a:hover {
   background-color: #1C7C64;
 }
 
-/* ✅ Search bar */
 .search-bar-container {
   width: 100%;
   display: flex;
@@ -236,7 +230,6 @@ nav ul li a:hover {
   box-shadow: 0px 6px 15px rgba(28, 102, 144, 0.6);
 }
 
-/* ✅ Checkout Page Container */
 #page {
   padding: 40px;
   background: #ffffff;
@@ -248,7 +241,6 @@ nav ul li a:hover {
   text-align: left;
 }
 
-/* ✅ Cart Items Wrapper */
 #orderblock {
   display: flex;
   flex-direction: column;
@@ -256,7 +248,6 @@ nav ul li a:hover {
   margin-top: 20px;
 }
 
-/* ✅ Single Cart Item */
 .orderItem {
   display: flex;
   gap: 20px;
@@ -267,7 +258,6 @@ nav ul li a:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* ✅ Item Image */
 .orderItem img {
   width: 80px;
   height: 80px;
@@ -275,7 +265,6 @@ nav ul li a:hover {
   border-radius: 8px;
 }
 
-/* ✅ Item Details */
 .orderItem div {
   flex: 1;
   font-size: 1rem;
@@ -283,7 +272,6 @@ nav ul li a:hover {
   line-height: 1.6;
 }
 
-/* ✅ Total Amount */
 .totall {
   margin-top: 30px;
   font-size: 1.5rem;
@@ -294,7 +282,6 @@ nav ul li a:hover {
   padding-top: 20px;
 }
 
-/* ✅ Button Container (Optional for layout) */
 .checkout-buttons {
   display: flex;
   justify-content: center;
@@ -303,13 +290,12 @@ nav ul li a:hover {
   flex-wrap: wrap;
 }
 
-/* ✅ Base Button Style */
 .checkout-buttons button {
   padding: 14px 32px;
   font-size: 1rem;
   font-weight: 600;
   color: #fff;
-  background: #2980b9; /* Same as logout */
+  background: #2980b9; 
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -317,14 +303,12 @@ nav ul li a:hover {
   box-shadow: 0px 4px 8px rgba(41, 128, 185, 0.3);
 }
 
-/* ✅ Hover Effect */
 .checkout-buttons button:hover {
   background: #1c6690;
   transform: scale(1.05);
   box-shadow: 0px 6px 15px rgba(28, 102, 144, 0.5);
 }
 
-/* Media Query */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
