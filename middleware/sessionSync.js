@@ -16,7 +16,6 @@ async function syncSessionUser(req, res, next) {
                     isAdmin: dbUser.admin
                 };
 
-                // ✅ Refresh token with updated admin value
                 const token = jwt.sign(
                     { userId: dbUser._id, admin: dbUser.admin },
                     JWT_SECRET,
@@ -32,7 +31,7 @@ async function syncSessionUser(req, res, next) {
                 res.locals.user = null;
             }
         } catch (err) {
-            console.error('❌ sessionSync error:', err.message);
+            console.error('SessionSync error:', err.message);
             res.locals.user = null;
         }
     } else {
