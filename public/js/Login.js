@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 3000);
 
         } catch (err) {
-            console.error('❌ Failed to check email:', err);
+            console.error('Failed to check email:', err);
         }
     });
 });
