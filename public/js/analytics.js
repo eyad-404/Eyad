@@ -29,14 +29,14 @@ async function loadAnalyticsChart() {
 
     const canvas = document.getElementById('purchaseChart');
     if (!canvas) {
-      console.error('❌ purchaseChart canvas not found in DOM');
+      console.error('PurchaseChart canvas not found in DOM');
       return;
     }
 
     const ctx = canvas.getContext('2d');
     new Chart(ctx, config);
   } catch (error) {
-    console.error('❌ Failed to load analytics chart:', error);
+    console.error('Failed to load analytics chart:', error);
   }
 }
 
