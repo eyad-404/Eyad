@@ -11,20 +11,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     let userCart = {};
     let cartIsEmpty = true;
 
-    // ✅ Fetch cart from backend
     try {
         const res = await fetch('/api/get-cart');
         if (res.ok) {
             userCart = await res.json();
             cartIsEmpty = Object.keys(userCart).length === 0;
         } else {
-            console.warn('⚠️ Failed to fetch cart:', res.statusText);
+            console.warn('Failed to fetch cart:', res.statusText);
         }
     } catch (err) {
-        console.error('❌ Fetch cart error:', err);
+        console.error('Fetch cart error:', err);
     }
 
-    // ✅ Toggle payment inputs
     function togglePaymentInputs() {
         if (radioVisa.checked) {
             visaDetails.style.display = 'block';
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     radioVisa.addEventListener('change', togglePaymentInputs);
     radioCash.addEventListener('change', togglePaymentInputs);
 
-    // ✅ Format expiry date
     expiryInput.addEventListener('input', () => {
         let value = expiryInput.value.replace(/\D/g, '');
         if (value.length >= 3) {
@@ -50,7 +47,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         expiryInput.value = value;
     });
 
-    // ✅ Validate expiry
     expiryInput.addEventListener('blur', () => {
         const parent = expiryInput.parentElement;
         const oldError = parent.querySelector('.error-message');
@@ -63,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const inputDate = new Date(`20${year}`, month - 1);
 
         if (!month || !year || month < 1 || month > 12 || inputDate < currentDate) {
-            showExpiryError("❌ Please enter a valid and unexpired date (MM/YY).");
+            showExpiryError("Please enter a valid and unexpired date (MM/YY).");
         }
     });
 
@@ -78,7 +74,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         expiryInput.parentElement.appendChild(error);
     }
 
-    // ✅ Form submission
     document.getElementById('paymentForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -117,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const data = await res.json();
-            console.log("✅", data.message);
+            console.log("Correct", data.message);
 
             document.getElementById('checkoutForm').style.display = 'none';
             modal.style.display = 'block';
@@ -126,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.location.href = "/homepage";
             }, 3000);
         } catch (err) {
-            console.error("❌ Order submission failed:", err);
+            console.error("Order submission failed:", err);
             alert("Something went wrong while placing your order.");
         }
     });
