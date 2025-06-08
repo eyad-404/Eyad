@@ -7,12 +7,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* ✅ BODY */
 body {
   background: #e4ebf6;
   color: #2c3e50;
   padding: 20px;
-  padding-top: 120px; /* space for fixed navbar */
+  padding-top: 120px; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,20 +22,20 @@ body {
 header {
     position: relative;
     bottom: 100px;
-  background: #ffffff; /* solid white background */
+  background: #ffffff; 
   padding: 12px 50px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border-radius: 12px;
   width: 100%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* subtle shadow for depth */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #3498db; /* blue accent */
+  color: #3498db;
   margin-right: 30px;
 }
 
@@ -56,7 +55,7 @@ nav ul {
 }
 
 nav ul li a {
-  color: #34495e; /* dark muted blue */
+  color: #34495e; 
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -64,10 +63,10 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #2980b9; /* bright blue hover */
+  color: #2980b9; 
   
 }
-/* ✅ LOGOUT BUTTON */
+
 .sign-in-btn {
   padding: 14px 32px;
   font-size: 1rem;
@@ -88,7 +87,6 @@ nav ul li a:hover {
   box-shadow: 0px 6px 15px rgba(28, 102, 144, 0.6);
 }
 
-/* === MAIN CONTENT === */
 .info {
   position: relative;
   bottom: 35px;
@@ -175,7 +173,6 @@ a:hover {
   color: #fff;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
