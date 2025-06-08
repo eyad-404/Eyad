@@ -14,7 +14,6 @@ exports.postSignUp = async (req, res) => {
   
   const { fullName, email, password, confirmPassword } = req.body;
 
-  // التحقق من أن البيانات موجودة
   if (!fullName || !email || !password || !confirmPassword) {
     console.error('Missing form fields');
     return res.status(400).render('Sign-in', {
