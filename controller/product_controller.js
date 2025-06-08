@@ -1,6 +1,5 @@
 const Product = require('../Models/productManagementSchema');
-const { sendProductRefreshEvent } = require('../routes/sse'); // المسار حسب مكان الملف
- // 🔄 إشعار للـ frontend يعمل refresh
+const { sendProductRefreshEvent } = require('../routes/sse'); 
 
 const insertProduct = async (req, res) => {
   try {
@@ -97,11 +96,11 @@ const updateProduct = async (req, res) => {
 };
  const getAllProducts = async (req, res) => {
   try {
-    const searchQuery = req.query.query; // ده اللي جاي من الـ search input
+    const searchQuery = req.query.query; 
     let filter = {};
 
     if (searchQuery) {
-      filter = { name: { $regex: searchQuery, $options: 'i' } }; // بحث جزئي case-insensitive
+      filter = { name: { $regex: searchQuery, $options: 'i' } }; 
     }
 
     const products = await Product.find(filter);
