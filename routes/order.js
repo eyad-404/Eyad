@@ -6,7 +6,6 @@ const Analytics = require('../Models/analyticsSchema');
 const Product = require('../Models/productManagementSchema');
 const { verifyToken, requireJwtAdmin } = require('../middleware/jwtAuth');
 
-// ✅ تحديث السلة داخل session
 router.post('/update-cart', (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: 'Unauthorized. Please login.' });
@@ -16,7 +15,6 @@ router.post('/update-cart', (req, res) => {
   return res.json({ message: 'Cart updated in session.' });
 });
 
-// ✅ الحصول على السلة من session
 router.get('/get-cart', (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: 'Unauthorized. Please login.' });
@@ -24,7 +22,6 @@ router.get('/get-cart', (req, res) => {
   return res.json(req.session.cart || {});
 });
 
-// ✅ تنفيذ الشراء
 router.post('/purchase', async (req, res) => {
   try {
     if (!req.session.user || !req.session.user._id) {
@@ -41,7 +38,6 @@ router.post('/purchase', async (req, res) => {
 
     const { totalPrice, paymentMethod } = req.body;
 
-    // ✅ استرجاع بيانات المنتجات من قاعدة البيانات
     const productNames = Object.keys(cart);
     const dbProducts = await Product.find({ name: { $in: productNames } });
 
@@ -53,11 +49,10 @@ router.post('/purchase', async (req, res) => {
         price: cartItem.price,
         quantity: cartItem.quantity,
         image: cartItem.image,
-        country: (dbProduct?.country || 'Unknown').toLowerCase() // ✅ Normalized
+        country: (dbProduct?.country || 'Unknown').toLowerCase() 
       };
     });
-
-    // ✅ إنشاء الطلب
+    
     const order = new Order({
       userId,
       username,
@@ -68,7 +63,6 @@ router.post('/purchase', async (req, res) => {
 
     await order.save();
 
-    // ✅ تحديث Analytics
     const updateOps = products.map(item => {
       if (!item.country || !item.quantity) return null;
 
@@ -81,18 +75,16 @@ router.post('/purchase', async (req, res) => {
 
     await Promise.all(updateOps.filter(Boolean));
 
-    // ✅ مسح السلة بعد إتمام الشراء
     req.session.cart = {};
 
-    console.log('✅ Order saved and analytics updated.');
+    console.log('Order saved and analytics updated.');
     return res.status(201).json({ message: 'Order placed and analytics updated successfully.' });
   } catch (error) {
-    console.error("❌ Purchase error:", error);
+    console.error("Purchase error:", error);
     return res.status(500).json({ error: "Failed to complete purchase." });
   }
 });
 
-// ✅ Capitalize helper
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
@@ -122,10 +114,9 @@ router.all('/reset-analytics', verifyToken, requireJwtAdmin, async (req, res) =>
       );
     }
 
-    // بدل ما ترجع JSON، نعيد توجيه للصفحة
-    res.redirect('/analytics');  // غير حسب رابط صفحة التحليلات عندك
+    res.redirect('/analytics'); 
   } catch (err) {
-    console.error("❌ Reset error:", err);
+    console.error("Reset error:", err);
     res.status(500).json({ error: "Failed to reset analytics." });
   }
 });
