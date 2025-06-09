@@ -20,6 +20,18 @@ async function postRegister(req, res) {
         });
     }
 
+    if (
+  typeof fullName !== 'string' ||
+  typeof email !== 'string' ||
+  typeof password !== 'string' ||
+  typeof confirmPassword !== 'string'
+) {
+  return res.render('Sign-in', {
+    errorMessage: 'Invalid input types.',
+    pageTitle: 'Sign IN'
+  });
+}
+
     if (password !== confirmPassword) {
         return res.render('Sign-in', {
             errorMessage: 'Passwords do not match.',
@@ -72,6 +84,16 @@ async function postLogin(req, res) {
             pageTitle: 'Login'
         });
     }
+
+    if (
+  typeof email !== 'string' ||
+  typeof password !== 'string'
+) {
+  return res.render('Login', {
+    errorMessage: 'Invalid input types.',
+    pageTitle: 'Login'
+  });
+}
 
     try {
         const user = await User.findOne({ email }).select('+password');
@@ -156,6 +178,10 @@ function logout(req, res) {
 async function ajaxCheckUser(req, res) {
     try {
         const { email } = req.query;
+        
+        if (typeof email !== 'string') {
+  return res.status(400).json({ exists: false });
+}
         const user = await User.exists({ email });
         res.json({ exists: !!user });
     } catch (error) {
