@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -15,22 +16,16 @@ const productSchema = new mongoose.Schema({
   country: {
     type: String,
     required: true,
-    trim: true,
-    validate: {
-      validator: (value) => {
-        return typeof value === 'string' && !value.includes('$') && !value.includes('.');
-      },
-      message: 'Invalid country name'
-    }
-  },
-  image: {
-    type: String,
-    required: [true, 'Product image is required'],
     trim: true
   },
+  image: {
+  type: String,
+  required: [true, 'Product image is required'],
+  trim: true
+},
   description: {
     type: String,
-    trim: true // not required but still cleaned
+    required: false
   },
   unitsLeft: {
     type: Number,
@@ -42,8 +37,6 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-}, {
-  strict: true // prevent adding unexpected fields like $where
 });
 
 const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
