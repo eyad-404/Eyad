@@ -7,6 +7,8 @@ const MongoStore = require('connect-mongo');
 
 const app = express();
 
+app.disable('x-powered-by');
+
 mongoose.connect('mongodb+srv://eyad404:1234@cluster0.mwnt4hv.mongodb.net/khalasonabaa?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('MongoDB connection error:', err));
