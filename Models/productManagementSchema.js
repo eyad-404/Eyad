@@ -16,16 +16,23 @@ const productSchema = new mongoose.Schema({
   country: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    validate: {
+      validator: function (v) {
+        return typeof v === 'string' && !v.includes('$') && !v.includes('.');
+      },
+      message: props => `${props.value} is not a valid country name`
+    }
   },
   image: {
-  type: String,
-  required: [true, 'Product image is required'],
-  trim: true
-},
+    type: String,
+    required: [true, 'Product image is required'],
+    trim: true
+  },
   description: {
     type: String,
-    required: false
+    required: false,
+    trim: true
   },
   unitsLeft: {
     type: Number,
@@ -37,6 +44,8 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+}, {
+  strict: true 
 });
 
 const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
