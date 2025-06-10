@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -18,10 +17,10 @@ const productSchema = new mongoose.Schema({
     required: true,
     trim: true,
     validate: {
-      validator: function (v) {
-        return typeof v === 'string' && !v.includes('$') && !v.includes('.');
+      validator: (value) => {
+        return typeof value === 'string' && !value.includes('$') && !value.includes('.');
       },
-      message: props => `${props.value} is not a valid country name`
+      message: 'Invalid country name'
     }
   },
   image: {
@@ -31,8 +30,7 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: false,
-    trim: true
+    trim: true // not required but still cleaned
   },
   unitsLeft: {
     type: Number,
@@ -45,7 +43,7 @@ const productSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  strict: true 
+  strict: true // prevent adding unexpected fields like $where
 });
 
 const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
