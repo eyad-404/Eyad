@@ -25,7 +25,13 @@ router.get('/events', (req, res) => {
 
   req.on('close', () => {
     console.log(`SSE client disconnected: ${clientId}`);
-    clients = clients.filter(c => c.id !== clientId);
+    const updatedClients = [];
+    for (let i = 0; i < clients.length; i++) {
+      if (clients[i].id !== clientId) {
+        updatedClients.push(clients[i]);
+      }
+    }
+    clients = updatedClients;
   });
 });
 
