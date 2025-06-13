@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Order = require('../Models/orderSchema');
 const Analytics = require('../Models/analyticsSchema');
 const Product = require('../Models/productManagementSchema');
+const handlePurchase = require('../controller/purchaseController');
 const { verifyToken, requireJwtAdmin } = require('../middleware/jwtAuth');
 
 router.post('/update-cart', (req, res) => {
@@ -28,60 +29,20 @@ router.post('/purchase', async (req, res) => {
       return res.status(401).json({ error: "Please log in to make a purchase." });
     }
 
-    const userId = new mongoose.Types.ObjectId(req.session.user._id);
-    const username = req.session.user.username || "Unknown";
-    const cart = req.session.cart || {};
+    req.body.userId = new mongoose.Types.ObjectId(req.session.user._id);
+    req.body.username = req.session.user.username || "Unknown";
+    req.body.cart = req.session.cart || {};
 
-    if (Object.keys(cart).length === 0) {
+    if (Object.keys(req.body.cart).length === 0) {
       return res.status(400).json({ error: 'Cart is empty.' });
     }
 
-    const { totalPrice, paymentMethod } = req.body;
-
-    const productNames = Object.keys(cart);
-    const dbProducts = await Product.find({ name: { $in: productNames } });
-
-    const products = productNames.map(name => {
-      const cartItem = cart[name];
-      const dbProduct = dbProducts.find(p => p.name === name);
-      return {
-        name,
-        price: cartItem.price,
-        quantity: cartItem.quantity,
-        image: cartItem.image,
-        country: (dbProduct?.country || 'Unknown').toLowerCase() 
-      };
-    });
-    
-    const order = new Order({
-      userId,
-      username,
-      products,
-      totalPrice,
-      paymentMethod
-    });
-
-    await order.save();
-
-    const updateOps = products.map(item => {
-      if (!item.country || !item.quantity) return null;
-
-      return Analytics.updateOne(
-        { country: item.country },
-        { $inc: { purchases: item.quantity } },
-        { upsert: true }
-      );
-    });
-
-    await Promise.all(updateOps.filter(Boolean));
+    await handlePurchase(req, res);
 
     req.session.cart = {};
-
-    console.log('Order saved and analytics updated.');
-    return res.status(201).json({ message: 'Order placed and analytics updated successfully.' });
   } catch (error) {
     console.error("Purchase error:", error);
-    return res.status(500).json({ error: "Failed to complete purchase." });
+    res.status(500).json({ error: "Failed to complete purchase." });
   }
 });
 
