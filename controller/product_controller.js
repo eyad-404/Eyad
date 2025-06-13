@@ -58,7 +58,9 @@ const searchProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const name = req.body.productname.trim();
-        const result = await Product.deleteOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
+       const result = await Product.deleteOne({
+            name: { $regex: `^${name}$`, $options: 'i' }
+        });
 
         if (result.deletedCount === 0) {
             return res.status(404).json({ success: false, message: 'product not found' });
