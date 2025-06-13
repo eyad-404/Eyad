@@ -98,7 +98,7 @@ const updateProduct = async (req, res) => {
 };
  const getAllProducts = async (req, res) => {
   try {
-    const searchQuery = req.query.query; 
+    const search = req.query.query; 
     let filter = {};
 
     if (searchQuery) {
@@ -107,7 +107,7 @@ const updateProduct = async (req, res) => {
 
     const products = await Product.find(filter);
 
-    res.render('products', { products, search: searchQuery });
+    res.render('products', { products, search });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error fetching products');
