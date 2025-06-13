@@ -1,25 +1,39 @@
-const Analytics = require('../Models/analyticsSchema');
+const Product = require('../Models/productManagementSchema');
 const Order = require('../Models/orderSchema');
+const Analytics = require('../Models/analyticsSchema');
 
 async function handlePurchase(req, res) {
-  const { products, totalPrice, paymentMethod, userId, username } = req.body;
-
-  if (!Array.isArray(products) || products.length === 0) {
-    return res.status(400).json({ error: 'Products list is empty or invalid' });
-  }
-
-  if (!userId || !username) {
-    return res.status(400).json({ error: 'Missing user information' });
-  }
+  const { userId, username, cart, totalPrice, paymentMethod } = req.body;
 
   try {
-    const updateOps = products.map(item => {
-      if (!item.country || !item.quantity) {
-        console.warn('Missing country or quantity in item:', item);
-        return null;
-      }
+    const productNames = Object.keys(cart);
 
-      console.log(`Updating ${item.country} by +${item.quantity}`);
+    const dbProducts = await Product.find({ name: { $in: productNames } });
+
+    const products = productNames.map(name => {
+      const cartItem = cart[name];
+      const dbProduct = dbProducts.find(p => p.name === name);
+      return {
+        name,
+        price: cartItem.price,
+        quantity: cartItem.quantity,
+        image: cartItem.image,
+        country: (dbProduct?.country || 'Unknown').toLowerCase()
+      };
+    });
+
+    const order = new Order({
+      userId,
+      username,
+      products,
+      totalPrice,
+      paymentMethod
+    });
+
+    await order.save();
+
+    const updateOps = products.map(item => {
+      if (!item.country || !item.quantity) return null;
       return Analytics.updateOne(
         { country: item.country },
         { $inc: { purchases: item.quantity } },
@@ -29,20 +43,11 @@ async function handlePurchase(req, res) {
 
     await Promise.all(updateOps.filter(Boolean));
 
-    const newOrder = new Order({
-      userId,
-      username,
-      products,
-      totalPrice,
-      paymentMethod
-    });
-
-    await newOrder.save();
-
-    res.status(200).json({ message: 'Order placed successfully and analytics updated' });
+    console.log('Order saved and analytics updated.');
+    res.status(201).json({ message: 'Order placed and analytics updated successfully.' });
   } catch (error) {
-    console.error("Error saving order or updating analytics:", error);
-    res.status(500).json({ error: 'Failed to place order' });
+    console.error("handlePurchase error:", error);
+    res.status(500).json({ error: "Failed to complete purchase." });
   }
 }
 
