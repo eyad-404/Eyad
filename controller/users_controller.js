@@ -1,6 +1,6 @@
 const User = require('../Models/userManagementSchema');
 const bcrypt = require('bcryptjs');
-const  insert_users = async(req, res,next) =>{
+const  insert_users = async(req, res) =>{
     try{
          const { username, email, password, admin } = req.body;
          const isAdmin = admin === 'on' || admin === true || admin === 'true';
@@ -21,7 +21,7 @@ const  insert_users = async(req, res,next) =>{
     res.status(500).send('Error inserting user');
   }
 };
-const get_users = async (req, res,next) => {
+const get_users = async (req, res) => {
   try {
     const search = req.query.username;
     const filter = search
@@ -36,7 +36,7 @@ const get_users = async (req, res,next) => {
     res.status(500).send('Error fetching users');
   }
 };
-const delete_user = async (req, res, next) => {
+const delete_user = async (req, res) => {
   const username = req.body.username;
 
   try {
@@ -53,7 +53,7 @@ const delete_user = async (req, res, next) => {
   }
 };
 
-const user_update = async (req, res, next) => {
+const user_update = async (req, res) => {
   const username = req.body.username;
 
   const update = {
