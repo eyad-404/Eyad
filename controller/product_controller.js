@@ -66,7 +66,7 @@ const deleteProduct = async (req, res) => {
         sendProductRefreshEvent();
         res.status(200).json({ success: true, message: 'PRODUCT DELETE SUCCESSFULLY' });
     } catch (err) {
-        console.error('🔥 Error deleting product:', err);
+        console.error(' Error deleting product:', err);
         res.status(500).json({ success: false, message: 'Error deleting product' });
     }
 };
