@@ -50,7 +50,7 @@ router.get('/settings', verifyToken, requireJwtAdmin, (req, res) => {
   res.render('settings', { pageTitle: 'Settings' });
 });
 
-router.get('/dashboard', requireLogin, async (req, res) => {
+router.get('/dashboard', verifyToken, requireJwtAdmin,requireLogin, async (req, res) => {
   try {
     const sessionUser = req.session.user;
     if (!sessionUser) return res.redirect('/login');
@@ -94,5 +94,6 @@ router.get('/login', (req, res) => {
 router.get('/signin', (req, res) => {
   res.render('Sign-in', { pageTitle: 'Sign IN' });
 });
+
 
 module.exports = router;
