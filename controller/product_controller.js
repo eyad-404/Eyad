@@ -96,27 +96,10 @@ const updateProduct = async (req, res) => {
         res.status(500).json({ success: false, message: "Error updating product" });
     }
 };
- const getAllProducts = async (req, res) => {
-  try {
-    const search = req.query.query; 
-    let filter = {};
 
-    if (searchQuery) {
-      filter = { name: { $regex: searchQuery, $options: 'i' } }; 
-    }
-
-    const products = await Product.find(filter);
-
-    res.render('products', { products, search });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error fetching products');
-  }
-};
 module.exports = {
     insertProduct,
     searchProduct,
     deleteProduct,
     updateProduct,
-    getAllProducts,
 };
