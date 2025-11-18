@@ -8,7 +8,19 @@ const { verifyToken, requireJwtAdmin } = require('../middleware/jwtAuth');
 router.get(['/', '/homepage'], (req, res) => {
   res.render('homepage', { pageTitle: 'Home' });
 });
+router.get('/about', (req, res) => {
+  res.render('about-us', {
+    pageTitle: 'About Us',
+    showMore: true
+  });
+});
 
+router.get('/contact', (req, res) => {
+  res.render('contact-us', { pageTitle: 'Contact Us' });
+});
+// router.get('/partners', (req, res) => {
+//   res.render('partners', { pageTitle: 'Our Partners' });
+// });
 router.get('/product', async (req, res) => {
   try {
     const products = await Product.find();
@@ -17,6 +29,23 @@ router.get('/product', async (req, res) => {
     res.status(500).send('Error fetching products');
   }
 });
+
+// const productCategories = [
+//   'sauce', 'pastes', 'pickles', 'spices', 'cocunut', 'rice',
+//   'vineger', 'tomatoes', 'sticks', 'canned_fruits', 'sushi',
+//   'beans', 'boba', 'food_additives', 'planet_based_milk_alternatives', 'other'
+// ];
+
+// productCategories.forEach(category => {
+//   router.get(`/product/${category}`, async (req, res) => {
+//     const products = await Product.find({ category });
+//     res.render('product-category', {
+//       pageTitle: category.replace(/_/g, ' ').toUpperCase(),
+//       category,
+//       products
+//     });
+//   });
+// });
 
 router.get('/payment',requireLogin, (req, res) => {
   const cart = req.session.cart || {};
@@ -35,22 +64,13 @@ router.get('/checkout', (req, res) => {
   res.render('checkout', { pageTitle: 'Checkout' });
 });
 
-router.get('/about', (req, res) => {
-  res.render('about-us', {
-    pageTitle: 'About Us',
-    showMore: true
-  });
-});
-
-router.get('/contact', (req, res) => {
-  res.render('contact-us', { pageTitle: 'Contact Us' });
-});
 
 router.get('/settings', verifyToken, requireJwtAdmin, (req, res) => {
   res.render('settings', { pageTitle: 'Settings' });
 });
 
-router.get('/dashboard', verifyToken, requireJwtAdmin,requireLogin, async (req, res) => {
+
+router.get('/dashboard', requireLogin, async (req, res) => {
   try {
     const sessionUser = req.session.user;
     if (!sessionUser) return res.redirect('/login');
@@ -94,6 +114,5 @@ router.get('/login', (req, res) => {
 router.get('/signin', (req, res) => {
   res.render('Sign-in', { pageTitle: 'Sign IN' });
 });
-
 
 module.exports = router;
