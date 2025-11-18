@@ -46,6 +46,9 @@ app.use('/', require('./routes/users'));
 app.use('/', require('./routes/products_route'));
 app.use('/', require('./routes/protectedRoutes'));
 app.use('/', require('./routes/authRoutes'));
+app.use('/partners', require('./routes/partners'));
+const categoryRoutes = require('./routes/category');
+app.use('/', categoryRoutes);
 
 const { router: sseRouter } = require('./routes/sse');
 app.use('/', sseRouter);
@@ -66,3 +69,4 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
