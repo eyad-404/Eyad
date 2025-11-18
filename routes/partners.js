@@ -7,7 +7,7 @@ const companies = [
   { id: 2, name: 'LITALY', logo: '/image/litaly.png' },
   { id: 3, name: 'MOTHER', logo: '/image/mother.png' },
   { id: 4, name: 'Spiga', logo: '/image/spiga.png' },
-  { id: 5, name: 'Aachi', logo: '/image/achi.png' },
+  { id: 5, name: 'Aachi', logo: '/image/aachi.png' },
   { id: 6, name: 'AROY-D', logo: '/image/aroy-d.png' },
   { id: 7, name: 'diamound', logo: '/image/diamound.png' },
   { id: 8, name: 'diari', logo: '/image/diari.png' },
